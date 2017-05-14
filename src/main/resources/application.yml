@@ -1,0 +1,33 @@
+#druid
+druid:
+    url: jdbc:mysql://localhost:3306/ferrymen
+    username: root
+    password: 80995878
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+
+#mybatis
+mybatis:
+  mapperLocations: classpath*:com/fm/mapper/*.xml
+  typeAliasesPackage: com.fm.pojo
+
+#pagehelper
+pagehelper:
+  dialect: com.github.pagehelper.dialect.helper.MySqlDialect
+
+#redis
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+#server port
+server:
+  port: 80
+
+
+
+
+

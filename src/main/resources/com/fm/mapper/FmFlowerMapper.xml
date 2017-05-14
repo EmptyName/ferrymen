@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fm.mapper.FmFlowerMapper" >
+  <resultMap id="BaseResultMap" type="com.fm.pojo.flower.FmFlower" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="growth" property="growth" jdbcType="INTEGER" />
+    <result column="quality" property="quality" jdbcType="INTEGER" />
+    <result column="thriving" property="thriving" jdbcType="INTEGER" />
+    <result column="sunshine" property="sunshine" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="flower_id" property="flowerId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, growth, quality, thriving, sunshine, user_id, flower_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fm.pojo.flower.FmFlowerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_flower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_flower
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_flower
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fm.pojo.flower.FmFlowerExample" >
+    delete from fm_flower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fm.pojo.flower.FmFlower" >
+    insert into fm_flower (id, growth, quality, 
+      thriving, sunshine, user_id, 
+      flower_id)
+    values (#{id,jdbcType=BIGINT}, #{growth,jdbcType=INTEGER}, #{quality,jdbcType=INTEGER}, 
+      #{thriving,jdbcType=INTEGER}, #{sunshine,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
+      #{flowerId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fm.pojo.flower.FmFlower" >
+    insert into fm_flower
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="growth != null" >
+        growth,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="thriving != null" >
+        thriving,
+      </if>
+      <if test="sunshine != null" >
+        sunshine,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="flowerId != null" >
+        flower_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="growth != null" >
+        #{growth,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="thriving != null" >
+        #{thriving,jdbcType=INTEGER},
+      </if>
+      <if test="sunshine != null" >
+        #{sunshine,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="flowerId != null" >
+        #{flowerId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fm.pojo.flower.FmFlowerExample" resultType="java.lang.Integer" >
+    select count(*) from fm_flower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_flower
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.growth != null" >
+        growth = #{record.growth,jdbcType=INTEGER},
+      </if>
+      <if test="record.quality != null" >
+        quality = #{record.quality,jdbcType=INTEGER},
+      </if>
+      <if test="record.thriving != null" >
+        thriving = #{record.thriving,jdbcType=INTEGER},
+      </if>
+      <if test="record.sunshine != null" >
+        sunshine = #{record.sunshine,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.flowerId != null" >
+        flower_id = #{record.flowerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_flower
+    set id = #{record.id,jdbcType=BIGINT},
+      growth = #{record.growth,jdbcType=INTEGER},
+      quality = #{record.quality,jdbcType=INTEGER},
+      thriving = #{record.thriving,jdbcType=INTEGER},
+      sunshine = #{record.sunshine,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      flower_id = #{record.flowerId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fm.pojo.flower.FmFlower" >
+    update fm_flower
+    <set >
+      <if test="growth != null" >
+        growth = #{growth,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="thriving != null" >
+        thriving = #{thriving,jdbcType=INTEGER},
+      </if>
+      <if test="sunshine != null" >
+        sunshine = #{sunshine,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="flowerId != null" >
+        flower_id = #{flowerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fm.pojo.flower.FmFlower" >
+    update fm_flower
+    set growth = #{growth,jdbcType=INTEGER},
+      quality = #{quality,jdbcType=INTEGER},
+      thriving = #{thriving,jdbcType=INTEGER},
+      sunshine = #{sunshine,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      flower_id = #{flowerId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

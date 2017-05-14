@@ -36,5 +36,4 @@ hs_err_pid*
 .idea/vcs.xml
 ferrymen.iml
 pom.xml
-src/
 target/
