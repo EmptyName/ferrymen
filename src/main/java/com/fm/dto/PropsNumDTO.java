@@ -56,16 +56,16 @@ public class PropsNumDTO {
 
 
     static class FreeProps {
-        @JsonProperty("灌溉")
+//        @JsonProperty("灌溉")
         private Integer irrigation;
 
-        @JsonProperty("除草")
+//        @JsonProperty("除草")
         private Integer weeding;
 
-        @JsonProperty("杀虫")
+//        @JsonProperty("杀虫")
         private Integer insecticide;
 
-        @JsonProperty("光照")
+//        @JsonProperty("光照")
         private Integer illumination;
 
         public FreeProps(Integer irrigation, Integer weeding, Integer insecticide, Integer illumination) {
@@ -110,7 +110,7 @@ public class PropsNumDTO {
 
     static class ChargeProps {
 
-        @JsonProperty("施肥")
+//        @JsonProperty("施肥")
         private Integer fertilization;
 
         public ChargeProps(Integer fertilization) {

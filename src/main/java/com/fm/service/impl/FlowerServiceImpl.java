@@ -95,7 +95,7 @@ public class FlowerServiceImpl implements FlowerService {
         List<FmFlower> flowers = flowerMapper.selectByExample(flowerExample);
         for (FmFlower flower : flowers) {
             if (!isMature(flower) && isEqual0(allSeedWithPriceEqual0, id)) {
-                return ResultJson.ok("已有免费花且未成熟");
+                return ResultJson.build(409, "已有免费花且未成熟");
             }
         }
         FmFlower currentFlower = new FmFlower();
@@ -185,8 +185,8 @@ public class FlowerServiceImpl implements FlowerService {
     @Override
     public ResultJson getFlowerDictById(Long id) {
         FmFlowerDict fmFlowerDict = flowerDictMapper.selectByPrimaryKey(id);
-        if(fmFlowerDict == null) {
-            return ResultJson.build(404,"该种花不存在");
+        if (fmFlowerDict == null) {
+            return ResultJson.build(404, "该种花不存在");
         }
 
         return ResultJson.ok(fmFlowerDict);
