@@ -21,13 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-   private TokenManager tokenManager;
+    private TokenManager tokenManager;
 
     @Override
-    /**
-     * token成功，讲id放入request，在下个参数处理器注入当前用户对象。
-     * token验证失败，且该方法带有@AuthAnnotation注解。直接返回401。没有带有注解说明不需要权限放行
-     */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
             return true;

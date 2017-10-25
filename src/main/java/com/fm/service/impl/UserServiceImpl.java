@@ -3,6 +3,7 @@ package com.fm.service.impl;
 import com.fm.authority.token.Token;
 import com.fm.authority.util.TokenManager;
 import com.fm.dto.ResultJson;
+import com.fm.exception.UserLoginFailException;
 import com.fm.mapper.FmFlowerPropsLogMapper;
 import com.fm.mapper.FmUserFmMapper;
 import com.fm.mapper.FmUserMapper;
@@ -48,19 +49,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultJson login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         if (username == null || password == null) {
-            return ResultJson.build(404, "账号或密码错误");
+            throw new UserLoginFailException("账号或密码错误");
         }
 
         FmUserExample userExample = new FmUserExample();
         FmUserExample.Criteria criteria = userExample.createCriteria();
         criteria.andUsernameEqualTo(username).andPasswordEqualTo(password);
         List<FmUser> users = userMapper.selectByExample(userExample);
-        if (users.size() != 0) {
-            CookieUtils.setCookie(request, response, "token", tokenManager.createToken(users.get(0).getId()).toString());
-            return ResultJson.ok();
-        } else {
-            return ResultJson.build(404, "账号或密码错误");
-        }
+
+        if (users.size() == 0)
+            throw new UserLoginFailException("账号或密码错误");
+
+        CookieUtils.setCookie(request, response, "token", tokenManager.createToken(users.get(0).getId()).toString());
+        return ResultJson.ok();
     }
 
     @Override
@@ -130,8 +131,6 @@ public class UserServiceImpl implements UserService {
         List<FmUserFm> fmUserFms = userFmMapper.selectByExample(userFmExample);
         return ResultJson.ok(fmUserFms.get(0).getUserFm());
     }
-
-
 
 
 }

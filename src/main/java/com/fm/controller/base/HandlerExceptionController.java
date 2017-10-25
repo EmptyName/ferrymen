@@ -3,6 +3,7 @@ package com.fm.controller.base;
 import com.fm.dto.ResultJson;
 import com.fm.exception.TokenException;
 import com.fm.exception.UserHasNotEnoughFmException;
+import com.fm.exception.UserLoginFailException;
 import com.fm.exception.UserNotFoundException;
 import com.fm.exception.UserUnauthorizedException;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,11 @@ public class HandlerExceptionController {
         return ResultJson.build(400, "数据绑定失败", res);
     }
 
+    @ExceptionHandler(UserLoginFailException.class)
+    public ResultJson handlerUserLoginFailException(UserLoginFailException e) {
+        return ResultJson.build(404, e.getMessage());
+    }
+
     @ExceptionHandler(TokenException.class)
     public ResultJson handlerTokenException() {
         return ResultJson.build(400, "add 1s failure");
@@ -48,7 +54,7 @@ public class HandlerExceptionController {
 
     @ExceptionHandler(UserHasNotEnoughFmException.class)
     public ResultJson handlerUserHasNotEnoughFmException(UserHasNotEnoughFmException e) {
-        return ResultJson.build(400,e.getLocalizedMessage());
+        return ResultJson.build(400, e.getLocalizedMessage());
     }
 
 }

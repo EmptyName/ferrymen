@@ -17,6 +17,7 @@ public class TokenManager {
 
     private RedisTemplate<Long, String> redisTemplate;
 
+
     @Autowired
     public void setRedisTemplate(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
